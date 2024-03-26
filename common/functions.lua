@@ -23,7 +23,7 @@ end)
 function ESX.GetRandomString(length)
     math.randomseed(GetGameTimer())
 
-    return length > 0 and ESX.GetRandomString(length - 1) .. Charset[math.random(1, #Charset)] or ""
+    return length > 0 and ESX.GetRandomString(length - 1) .. Charset[math.random(1, #Charset)] or ''
 end
 
 function ESX.GetConfig()
@@ -33,14 +33,14 @@ end
 function ESX.GetWeapon(weaponName)
     weaponName = string.upper(weaponName)
 
-    assert(weaponsByName[weaponName], "Invalid weapon name!")
+    assert(weaponsByName[weaponName], 'Invalid weapon name!')
 
     local index = weaponsByName[weaponName]
     return index, Config.Weapons[index]
 end
 
 function ESX.GetWeaponFromHash(weaponHash)
-    weaponHash = type(weaponHash) == "string" and joaat(weaponHash) or weaponHash
+    weaponHash = type(weaponHash) == 'string' and joaat(weaponHash) or weaponHash
 
     return weaponsByHash[weaponHash]
 end
@@ -52,16 +52,16 @@ end
 function ESX.GetWeaponLabel(weaponName)
     weaponName = string.upper(weaponName)
 
-    assert(weaponsByName[weaponName], "Invalid weapon name!")
+    assert(weaponsByName[weaponName], 'Invalid weapon name!')
 
     local index = weaponsByName[weaponName]
-    return Config.Weapons[index].label or ""
+    return Config.Weapons[index].label or ''
 end
 
 function ESX.GetWeaponComponent(weaponName, weaponComponent)
     weaponName = string.upper(weaponName)
 
-    assert(weaponsByName[weaponName], "Invalid weapon name!")
+    assert(weaponsByName[weaponName], 'Invalid weapon name!')
     local weapon = Config.Weapons[weaponsByName[weaponName]]
 
     for _, component in ipairs(weapon.components) do
@@ -76,28 +76,28 @@ function ESX.DumpTable(table, nb)
         nb = 0
     end
 
-    if type(table) == "table" then
-        local s = ""
+    if type(table) == 'table' then
+        local s = ''
         for _ = 1, nb + 1, 1 do
-            s = s .. "    "
+            s = s .. '    '
         end
 
-        s = "{\n"
+        s = '{\n'
         for k, v in pairs(table) do
-            if type(k) ~= "number" then
+            if type(k) ~= 'number' then
                 k = '"' .. k .. '"'
             end
             for _ = 1, nb, 1 do
-                s = s .. "    "
+                s = s .. '    '
             end
-            s = s .. "[" .. k .. "] = " .. ESX.DumpTable(v, nb + 1) .. ",\n"
+            s = s .. '[' .. k .. '] = ' .. ESX.DumpTable(v, nb + 1) .. ',\n'
         end
 
         for _ = 1, nb, 1 do
-            s = s .. "    "
+            s = s .. '    '
         end
 
-        return s .. "}"
+        return s .. '}'
     else
         return tostring(table)
     end

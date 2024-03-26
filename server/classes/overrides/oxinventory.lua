@@ -1,7 +1,7 @@
 local Inventory
 
 if Config.OxInventory then
-    AddEventHandler("ox_inventory:loadInventory", function(module)
+    AddEventHandler('ox_inventory:loadInventory', function(module)
         Inventory = module
     end)
 end
@@ -44,7 +44,7 @@ Core.PlayerFunctionOverrides.OxInventory = {
 
     setAccountMoney = function(self)
         return function(accountName, money, reason)
-            reason = reason or "unknown"
+            reason = reason or 'unknown'
             if money >= 0 then
                 local account = self.getAccount(accountName)
 
@@ -52,8 +52,8 @@ Core.PlayerFunctionOverrides.OxInventory = {
                     money = account.round and ESX.Math.Round(money) or money
                     self.accounts[account.index].money = money
 
-                    self.triggerEvent("esx:setAccountMoney", account)
-                    TriggerEvent("esx:setAccountMoney", self.source, accountName, money, reason)
+                    self.triggerEvent('esx:setAccountMoney', account)
+                    TriggerEvent('esx:setAccountMoney', self.source, accountName, money, reason)
                     if Inventory.accounts[accountName] then
                         Inventory.SetItem(self.source, accountName, money)
                     end
@@ -64,15 +64,15 @@ Core.PlayerFunctionOverrides.OxInventory = {
 
     addAccountMoney = function(self)
         return function(accountName, money, reason)
-            reason = reason or "unknown"
+            reason = reason or 'unknown'
             if money > 0 then
                 local account = self.getAccount(accountName)
 
                 if account then
                     money = account.round and ESX.Math.Round(money) or money
                     self.accounts[account.index].money = self.accounts[account.index].money + money
-                    self.triggerEvent("esx:setAccountMoney", account)
-                    TriggerEvent("esx:addAccountMoney", self.source, accountName, money, reason)
+                    self.triggerEvent('esx:setAccountMoney', account)
+                    TriggerEvent('esx:addAccountMoney', self.source, accountName, money, reason)
                     if Inventory.accounts[accountName] then
                         Inventory.AddItem(self.source, accountName, money)
                     end
@@ -83,15 +83,15 @@ Core.PlayerFunctionOverrides.OxInventory = {
 
     removeAccountMoney = function(self)
         return function(accountName, money, reason)
-            reason = reason or "unknown"
+            reason = reason or 'unknown'
             if money > 0 then
                 local account = self.getAccount(accountName)
 
                 if account then
                     money = account.round and ESX.Math.Round(money) or money
                     self.accounts[account.index].money = self.accounts[account.index].money - money
-                    self.triggerEvent("esx:setAccountMoney", account)
-                    TriggerEvent("esx:removeAccountMoney", self.source, accountName, money, reason)
+                    self.triggerEvent('esx:setAccountMoney', account)
+                    TriggerEvent('esx:removeAccountMoney', self.source, accountName, money, reason)
                     if Inventory.accounts[accountName] then
                         Inventory.RemoveItem(self.source, accountName, money)
                     end
@@ -139,8 +139,8 @@ Core.PlayerFunctionOverrides.OxInventory = {
     setMaxWeight = function(self)
         return function(newWeight)
             self.maxWeight = newWeight
-            self.triggerEvent("esx:setMaxWeight", self.maxWeight)
-            return Inventory.Set(self.source, "maxWeight", newWeight)
+            self.triggerEvent('esx:setMaxWeight', self.maxWeight)
+            return Inventory.Set(self.source, 'maxWeight', newWeight)
         end
     end,
 
@@ -213,8 +213,8 @@ Core.PlayerFunctionOverrides.OxInventory = {
 
                     if account and ESX.Math.Round(account.money) ~= amount then
                         account.money = amount
-                        self.triggerEvent("esx:setAccountMoney", account)
-                        TriggerEvent("esx:setAccountMoney", self.source, accountName, amount, "Sync account with item")
+                        self.triggerEvent('esx:setAccountMoney', account)
+                        TriggerEvent('esx:setAccountMoney', self.source, accountName, amount, 'Sync account with item')
                     end
                 end
             end
